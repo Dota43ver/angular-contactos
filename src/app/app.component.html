@@ -22,6 +22,7 @@
     <div class="form-group">
         <label for="pais">pais</label>
         <select name="pais" id="pais" class="form-control" formControlName="pais">
+            
             <option [ngValue]="item" *ngFor="let item of paises">{{item.nombre}}</option>
         </select>
     </div>
@@ -62,7 +63,7 @@
                 <td>{{item.estado.nombre}}</td>
                 <td>
                     <button type="button" class="btn btn-success">editar</button>
-                    <button type="button" class="btn btn-danger">eliminar</button>
+                    <button type="button" class="btn btn-danger" (click)="eliminar(item)">eliminar</button>
                 </td>
             </tr>
         </tbody>

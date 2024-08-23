@@ -20,4 +20,8 @@ export class ContactoService {
     return this.httpClient.post(this.API_SERVER, contacto);
   }
 
+  public deleteContacto(id:any): Observable<any> {
+    return this.httpClient.delete(this.API_SERVER + "delete/"+id);
+  }
+
 }

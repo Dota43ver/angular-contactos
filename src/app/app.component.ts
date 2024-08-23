@@ -29,29 +29,29 @@ export class AppComponent implements OnInit {
       numero: ['', Validators.required],
     });
 
-    this.paisesServices.getAllPaises().subscribe(resp=>{
+    this.paisesServices.getAllPaises().subscribe(resp => {
       this.paises = resp;
-      
-    },
-    error=>{
+    }, error => {
       console.error(error);
-    })
+    });
 
-    this.contactoServices.getAllContactos().subscribe(resp=>{
+    this.contactoServices.getAllContactos().subscribe(resp => {
       this.contactos = resp;
-    },
-    error=>{
+    }, error => {
       console.error(error);
-    })
+    });
 
-    this.personaForm.get('pais')?.valueChanges.subscribe(value=>{
-      this.estadosServices.cargarEstados(value.id).subscribe(resp=>{
+    this.personaForm.get('pais')?.valueChanges.subscribe(value => {
+      // Restablecer el campo de estado cuando se cambia el país
+      this.personaForm?.get('estado')?.reset();
+      this.estados = []; // Limpiar la lista de estados visibles
+
+      this.estadosServices.cargarEstados(value.id).subscribe(resp => {
         this.estados = resp;
-      },
-      error=>{
+      }, error => {
         console.error(error);
-      })
-    })
+      });
+    });
   }
 
   guardar():void{
@@ -66,6 +66,18 @@ export class AppComponent implements OnInit {
         numero: ['', Validators.required],
       });
       this.contactos.push(resp);
+    },
+    error=>{
+      console.error(error);
+    })
+  }
+
+  eliminar(contacto:any){
+    this.contactoServices.deleteContacto(contacto.id).subscribe(resp=>{
+      
+      this.contactos.pop(contacto)
+      // if(resp === true){
+      // }
     },
     error=>{
       console.error(error);
