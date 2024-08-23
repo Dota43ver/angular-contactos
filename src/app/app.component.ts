@@ -35,19 +35,25 @@ export class AppComponent implements OnInit {
     error=>{
       console.error(error);
     })
+
+    this.personaForm.get('pais')?.valueChanges.subscribe(value=>{
+      this.estadosServices.cargarEstados(value.id).subscribe(resp=>{
+        this.estados = resp;
+      },
+      error=>{
+        console.error(error);
+      })
+    })
   }
 
   guardar():void{
-
-  }
-
-  cargarEstados(event : any){
-
-    this.estadosServices.cargarEstados(event.target.value).subscribe(resp=>{
-      this.estados = resp;
+    this.contactoServices.saveContacto(this.personaForm?.value).subscribe(resp=>{
+      
     },
     error=>{
       console.error(error);
     })
   }
+
+  
 }

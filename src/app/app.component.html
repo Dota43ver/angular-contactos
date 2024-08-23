@@ -21,14 +21,14 @@
     </div>
     <div class="form-group">
         <label for="pais">pais</label>
-        <select name="pais" id="pais" class="form-control" formControlName="pais" (change)="cargarEstados($event)">
-            <option [value]="item.id" *ngFor="let item of paises">{{item.nombre}}</option>
+        <select name="pais" id="pais" class="form-control" formControlName="pais">
+            <option [ngValue]="item" *ngFor="let item of paises">{{item.nombre}}</option>
         </select>
     </div>
     <div class="form-group">
         <label for="estado">estado o region</label>
         <select name="estado" id="estado" class="form-control" formControlName="estado">
-            <option value="item.id" *ngFor="let item of estados">{{item.nombre}}</option>
+            <option [ngValue]="item" *ngFor="let item of estados">{{item.nombre}}</option>
         </select>
     </div>
 
