@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
 
   paises: any;
   estados: any;
+  contactos: any;
 
   constructor(public fb: FormBuilder, public estadosServices: EstadosService, public contactoServices: ContactoService, public paisesServices: PaisesService) {
 
@@ -36,6 +37,13 @@ export class AppComponent implements OnInit {
       console.error(error);
     })
 
+    this.contactoServices.getAllContactos().subscribe(resp=>{
+      this.contactos = resp;
+    },
+    error=>{
+      console.error(error);
+    })
+
     this.personaForm.get('pais')?.valueChanges.subscribe(value=>{
       this.estadosServices.cargarEstados(value.id).subscribe(resp=>{
         this.estados = resp;
@@ -48,7 +56,16 @@ export class AppComponent implements OnInit {
 
   guardar():void{
     this.contactoServices.saveContacto(this.personaForm?.value).subscribe(resp=>{
-      
+      // this.personaForm!.reset();
+      this.personaForm = this.fb.group({    
+        nombre: ['', Validators.required],
+        apellido: ['', Validators.required],
+        edad: ['', Validators.required],
+        pais: ['', Validators.required],
+        estado: ['', Validators.required],
+        numero: ['', Validators.required],
+      });
+      this.contactos.push(resp);
     },
     error=>{
       console.error(error);
