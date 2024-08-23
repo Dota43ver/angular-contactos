@@ -20,7 +20,8 @@ export class AppComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.personaForm = this.fb.group({    
+    this.personaForm = this.fb.group({
+      id: [''],  
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
       edad: ['', Validators.required],
@@ -42,9 +43,9 @@ export class AppComponent implements OnInit {
     });
 
     this.personaForm.get('pais')?.valueChanges.subscribe(value => {
-      // Restablecer el campo de estado cuando se cambia el país
+      
       this.personaForm?.get('estado')?.reset();
-      this.estados = []; // Limpiar la lista de estados visibles
+      this.estados = []; 
 
       this.estadosServices.cargarEstados(value.id).subscribe(resp => {
         this.estados = resp;
@@ -54,22 +55,20 @@ export class AppComponent implements OnInit {
     });
   }
 
-  guardar():void{
-    this.contactoServices.saveContacto(this.personaForm?.value).subscribe(resp=>{
-      // this.personaForm!.reset();
-      this.personaForm = this.fb.group({    
-        nombre: ['', Validators.required],
-        apellido: ['', Validators.required],
-        edad: ['', Validators.required],
-        pais: ['', Validators.required],
-        estado: ['', Validators.required],
-        numero: ['', Validators.required],
+  guardar(): void {
+    this.contactoServices.saveContacto(this.personaForm?.value).subscribe(resp => {
+      
+      this.personaForm!.reset();
+  
+      
+      this.contactoServices.getAllContactos().subscribe(updatedContacts => {
+        this.contactos = updatedContacts;
+      }, error => {
+        console.error('Error al recargar los contactos:', error);
       });
-      this.contactos.push(resp);
-    },
-    error=>{
-      console.error(error);
-    })
+    }, error => {
+      console.error('Error al guardar el contacto:', error);
+    });
   }
 
   eliminar(contacto:any){
@@ -82,6 +81,18 @@ export class AppComponent implements OnInit {
     error=>{
       console.error(error);
     })
+  }
+
+  editar(contacto:any){
+  this.personaForm!.setValue({
+    id: contacto.id,
+    nombre: contacto.nombre,
+    apellido: contacto.apellido,
+    edad: contacto.edad,
+    pais: contacto.pais,
+    estado: contacto.estado,
+    numero: contacto.numero,
+  })
   }
 
   

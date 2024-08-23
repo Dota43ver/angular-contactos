@@ -62,7 +62,7 @@
                 <td>{{item.pais.nombre}}</td>
                 <td>{{item.estado.nombre}}</td>
                 <td>
-                    <button type="button" class="btn btn-success">editar</button>
+                    <button type="button" class="btn btn-success" (click)="editar(item)">editar</button>
                     <button type="button" class="btn btn-danger" (click)="eliminar(item)">eliminar</button>
                 </td>
             </tr>
