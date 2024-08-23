@@ -1,11 +1,38 @@
 
-<div style="padding: 10%;">
+<div class="formularioRegistro">
 
     <form *ngIf="personaForm" [formGroup]="personaForm" (ngSubmit)="guardar()">
+        <h2>Crear contacto</h2>
     <div class="form-group">
         <label for="nombre">Nombre</label>
         <input type="text" class="form-control" id="nombre" formControlName="nombre">
     </div>
+    <div class="form-group">
+        <label for="apellido">Apellido</label>
+        <input type="text" class="form-control" id="apellido" formControlName="apellido">
+    </div>
+    <div class="form-group">
+        <label for="edad">edad</label>
+        <input type="number" class="form-control" id="edad" formControlName="edad">
+    </div>
+    <div class="form-group">
+        <label for="numero">numero</label>
+        <input type="number" class="form-control" id="numero" formControlName="numero">
+    </div>
+    <div class="form-group">
+        <label for="pais">pais</label>
+        <select name="pais" id="pais" class="form-control" formControlName="pais" (change)="cargarEstados($event)">
+            <option [value]="item.id" *ngFor="let item of paises">{{item.nombre}}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="estado">estado o region</label>
+        <select name="estado" id="estado" class="form-control" formControlName="estado">
+            <option value="item.id" *ngFor="let item of estados">{{item.nombre}}</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary" >Guardar</button>
 </form>
 </div>
 

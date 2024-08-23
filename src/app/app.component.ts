@@ -12,6 +12,9 @@ import { PaisesService } from './services/paises/paises.service';
 export class AppComponent implements OnInit {
   personaForm: FormGroup | undefined;
 
+  paises: any;
+  estados: any;
+
   constructor(public fb: FormBuilder, public estadosServices: EstadosService, public contactoServices: ContactoService, public paisesServices: PaisesService) {
 
   }
@@ -19,13 +22,32 @@ export class AppComponent implements OnInit {
     this.personaForm = this.fb.group({    
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
+      edad: ['', Validators.required],
       pais: ['', Validators.required],
       estado: ['', Validators.required],
       numero: ['', Validators.required],
     });
+
+    this.paisesServices.getAllPaises().subscribe(resp=>{
+      this.paises = resp;
+      
+    },
+    error=>{
+      console.error(error);
+    })
   }
 
   guardar():void{
 
+  }
+
+  cargarEstados(event : any){
+
+    this.estadosServices.cargarEstados(event.target.value).subscribe(resp=>{
+      this.estados = resp;
+    },
+    error=>{
+      console.error(error);
+    })
   }
 }
