@@ -1,0 +1,33 @@
+{
+  "src": {
+    "app": {
+      "app-routing.module.ts": "import { NgModule } from '@angular/core';\nimport { RouterModule, Routes } from '@angular/router';\n\nconst routes: Routes = [];\n\n@NgModule({\n  imports: [RouterModule.forRoot(routes)],\n  exports: [RouterModule]\n})\nexport class AppRoutingModule { }\n",
+      "app.component.css": "",
+      "app.component.html": "<router-outlet></router-outlet>",
+      "app.component.spec.ts": "import { TestBed } from '@angular/core/testing';\nimport { RouterTestingModule } from '@angular/router/testing';\nimport { AppComponent } from './app.component';\n\ndescribe('AppComponent', () => {\n  beforeEach(() => TestBed.configureTestingModule({\n    imports: [RouterTestingModule],\n    declarations: [AppComponent]\n  }));\n\n  it('should create the app', () => {\n    const fixture = TestBed.createComponent(AppComponent);\n    const app = fixture.componentInstance;\n    expect(app).toBeTruthy();\n  });\n\n  it(`should have as title 'contactocrud'`, () => {\n    const fixture = TestBed.createComponent(AppComponent);\n    const app = fixture.componentInstance;\n    expect(app.title).toEqual('contactocrud');\n  });\n\n  it('should render title', () => {\n    const fixture = TestBed.createComponent(AppComponent);\n    fixture.detectChanges();\n    const compiled = fixture.nativeElement as HTMLElement;\n    expect(compiled.querySelector('.content span')?.textContent).toContain('contactocrud app is running!');\n  });\n});\n",
+      "app.component.ts": "import { Component, OnInit } from '@angular/core';\nimport { FormBuilder, FormGroup, Validators } from '@angular/forms';\nimport { EstadosService } from './services/estados/estados.service';\nimport { ContactoService } from './services/contacto/contacto.service';\nimport { PaisesService } from './services/paises/paises.service';\n\n@Component({\n  selector: 'app-root',\n  templateUrl: './app.component.html',\n  styleUrls: ['./app.component.css'],\n})\nexport class AppComponent implements OnInit {\n  personaForm?: FormGroup;\n\n  constructor(public fb: FormBuilder, public estadosServices: EstadosService, public contactoServices: ContactoService, public paisesServices: PaisesService) {\n\n  }\n  ngOnInit(): void {\n    this.personaForm = this.fb.group({    \n      nombre: ['', Validators.required],\n      apellido: ['', Validators.required],\n      pais: ['', Validators.required],\n      estado: ['', Validators.required],\n      numero: ['', Validators.required],\n    });\n  }\n\n  guardar():void{\n\n  }\n}\n",
+      "app.module.ts": "import { NgModule } from '@angular/core';\nimport { BrowserModule } from '@angular/platform-browser';\n\nimport { AppRoutingModule } from './app-routing.module';\nimport { AppComponent } from './app.component';\n\n@NgModule({\n  declarations: [\n    AppComponent\n  ],\n  imports: [\n    BrowserModule,\n    AppRoutingModule\n  ],\n  providers: [],\n  bootstrap: [AppComponent]\n})\nexport class AppModule { }\n",
+      "services": {
+        "contacto": {
+          "contacto.service.spec.ts": "import { TestBed } from '@angular/core/testing';\n\nimport { ContactoService } from './contacto.service';\n\ndescribe('ContactoService', () => {\n  let service: ContactoService;\n\n  beforeEach(() => {\n    TestBed.configureTestingModule({});\n    service = TestBed.inject(ContactoService);\n  });\n\n  it('should be created', () => {\n    expect(service).toBeTruthy();\n  });\n});\n",
+          "contacto.service.ts": "import { Injectable } from '@angular/core';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class ContactoService {\n\n  constructor() { }\n}\n"
+        },
+        "estados": {
+          "estados.service.spec.ts": "import { TestBed } from '@angular/core/testing';\n\nimport { EstadosService } from './estados.service';\n\ndescribe('EstadosService', () => {\n  let service: EstadosService;\n\n  beforeEach(() => {\n    TestBed.configureTestingModule({});\n    service = TestBed.inject(EstadosService);\n  });\n\n  it('should be created', () => {\n    expect(service).toBeTruthy();\n  });\n});\n",
+          "estados.service.ts": "import { Injectable } from '@angular/core';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class EstadosService {\n\n  constructor() { }\n}\n"
+        },
+        "paises": {
+          "paises.service.spec.ts": "import { TestBed } from '@angular/core/testing';\n\nimport { PaisesService } from './paises.service';\n\ndescribe('PaisesService', () => {\n  let service: PaisesService;\n\n  beforeEach(() => {\n    TestBed.configureTestingModule({});\n    service = TestBed.inject(PaisesService);\n  });\n\n  it('should be created', () => {\n    expect(service).toBeTruthy();\n  });\n});\n",
+          "paises.service.ts": "import { Injectable } from '@angular/core';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class PaisesService {\n\n  constructor() { }\n}\n"
+        }
+      }
+    },
+    "assets": {
+      ".gitkeep": ""
+    },
+    "favicon.ico": "(binary)",
+    "index.html": "<!doctype html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Pagina de contactos</title>\n  <base href=\"/\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <link rel=\"icon\" type=\"image/x-icon\" href=\"favicon.ico\">\n</head>\n<body>\n  <app-root></app-root>\n</body>\n</html>\n",
+    "main.ts": "import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';\n\nimport { AppModule } from './app/app.module';\n\n\nplatformBrowserDynamic().bootstrapModule(AppModule)\n  .catch(err => console.error(err));\n",
+    "styles.css": "/* You can add global styles to this file, and also import other style files */\n"
+  }
+}
