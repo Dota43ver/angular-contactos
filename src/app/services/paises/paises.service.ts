@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class PaisesService {
 
-  private API_SERVER = "http://localhost:8080/pais/";
+  private API_SERVER = "https://spring-relations-production.up.railway.app/pais/";
 
   constructor(
     private httpClient: HttpClient
